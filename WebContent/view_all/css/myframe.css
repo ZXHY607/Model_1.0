@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+
+.myframe
+{
+	width: 95%;
+	height: 90%;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+.contentTitle
+{
+	text-align: center;
+	font-style: 微软雅黑;
+}
+.contentContent
+{
+	font-style:微软雅黑;
+}
