@@ -15,7 +15,6 @@ import org.springframework.util.StringUtils;
 import net.gslab.entity.Member;
 import net.gslab.entity.Teacher;
 import net.gslab.entity.Admin;
-import net.gslab.entity.User;
 import net.gslab.setting.CommonConstant;
 
 public class LoginFilter implements Filter {

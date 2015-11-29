@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import net.gslab.dao.BaseDao;
 import net.gslab.dao.MemberDao;
 import net.gslab.entity.Member;
-import net.gslab.entity.User;
 import net.gslab.service.MemberService;
 
 @Service("memberServiceImpl")

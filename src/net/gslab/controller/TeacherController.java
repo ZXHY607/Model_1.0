@@ -19,7 +19,6 @@ import net.gslab.dao.TeacherDao;
 import net.gslab.entity.Member;
 import net.gslab.entity.Teacher;
 import net.gslab.service.TeacherService;
-import net.gslab.service.UserService;
 import net.gslab.setting.PageBean;
 import net.gslab.tools.Email;
 

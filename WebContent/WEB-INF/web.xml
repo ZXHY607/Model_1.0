@@ -2,6 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>Lab</display-name>
   <description>experiment center</description>
+  <welcome-file-list>
+    <welcome-file>home.jsp</welcome-file>
+  </welcome-file-list>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -148,7 +151,12 @@
   
   <servlet-mapping>
     <servlet-name>default</servlet-name>
-    <url-pattern>*.asf</url-pattern>
+    <url-pattern>*.ogg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.flv</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
@@ -162,9 +170,7 @@
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+  
 <!--   <error-page>
     <error-code>404</error-code>
     <location>/common/resource_not_found.jsp</location>

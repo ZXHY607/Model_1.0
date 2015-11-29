@@ -46,10 +46,6 @@ public class Post extends BaseDomain {
 	private Date createTime;
 	
 	@ManyToOne
-	@JoinColumn(name="userId")
-	private User user;
-	
-	@ManyToOne
 	@JoinColumn(name="topicId")
 	private Topic topic;
 
@@ -94,13 +90,7 @@ public class Post extends BaseDomain {
 		this.createTime = createTime;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+	
 
 	public Topic getTopic() {
 		return topic;

@@ -111,6 +111,10 @@
 	<button>上传</button>
 	</form>
 	<br><br>
+	<div class="description">
+	视频播放器只支持以下几个格式的媒体文件mp3, mp4 (AAC/H.264), ogg (Vorbis/Theora), webm (Vorbis/VP8), wav
+	 ，rtmp, flv
+	</div>
 	<form action='/Model/file/newFolder'>
 		<input name="filePath" value="${filePath}" type="hidden">
 		<input name="fileName" placeholder="请输入要新建文件夹名称">

@@ -1,4 +1,4 @@
-package net.gslab.test;
+/*package net.gslab.test;
 
 import static org.junit.Assert.*;
 import net.gslab.service.UserService;
@@ -37,4 +37,4 @@ public class UserActionTest extends JUnitActionBase {
         String msg=(String)request.getAttribute("msg");  
         System.out.println(msg);  
     }  
-} 
+} */
