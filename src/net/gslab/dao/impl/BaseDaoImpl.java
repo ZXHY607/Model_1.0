@@ -69,9 +69,15 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @see net.gslab.dao.impl.BaseDao#save(T)
 	 */
 	@Override
-	public void save(T entity) {                 //泛型
+	public boolean save(T entity) {                 //泛型
 		System.out.println("in the baseDao Impl");
+		try{
 		this.getHibernateTemplate().save(entity);
+		}catch(Exception e)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	/*
@@ -88,15 +94,26 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 		return true;
 	}
-
+	@Override
+	public boolean remove(Serializable id) {
+		T t=get(id);
+		if(t!=null) remove(t);
+		return true;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see net.gslab.dao.impl.BaseDao#update(T)
 	 */
 	@Override
-	public void update(T entity) {
+	public boolean update(T entity) {
+		try{
 		this.getHibernateTemplate().update(entity);
+		}catch(Exception  e)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	/*

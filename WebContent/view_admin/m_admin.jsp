@@ -33,6 +33,7 @@
 		<li><a id="#managerTeacher" class="nav" href="/Model/teacher/getPage" target="iframe">教师管理</a></li>
 		<li><a id="#managerAdmin" class="nav" href="/Model/admin/getPage" target="iframe">管理员管理</a></li>
 		<li><a id="#managerNews" class="nav" href="/Model/news/getPage" target="iframe">新闻管理</a></li>
+		<li><a id="#managerCourse" class="nav" href="/Model/course/getAll?view=/view_admin/m_courseList.jsp" target="iframe">课程管理</a></li>
 	</ul>
 </div>	
 <hr/>
@@ -48,6 +49,13 @@
 
 		</ul>
 	</div>
+	<div class="menuList" id="managerCourse">
+		<ul>
+			<li>课程管理</li>
+			<li><a href="/Model/course/getAll?view=/view_admin/m_courseList.jsp" target="iframe">查看课程</a></li>
+			<li><a href="m_addCourse.jsp" class="menuListA" target="iframe">添加课程</a></li>
+		</ul>
+	</div>	
 	<div class="menuList" id="managerTeacher">
 		<ul>
 			<li>教师管理</li>
@@ -70,16 +78,16 @@
 			<li>新闻管理</li>
 			<li><a href="/Model/news/getPage" target="iframe">查看新闻</a></li>
 			<li><a href="m_newsAdd.jsp" class="menuListA"target="iframe">添加新闻</a></li>
-			<li><a href="m_newsDelete.jsp"  class="menuListA"target="iframe">删除新闻</a></li>
 		</ul>
 	</div>	
+	
 	<div class="menuList" id="managerSelf">
 		<ul>
 			<li>个人管理</li>
 			<li><a href="m_admin_personalInfor.jsp" target="iframe">个人信息</a></li>
 			<li><a href="m_modifyPassword.jsp"target="iframe">密码管理</a></li>
-			<li><a href="m_setEmail.jsp" class="menuListA"target="iframe">设置邮箱</a></li>
-			<li><a href="m_activeEmail.jsp" class="menuListA"target="iframe">激活邮箱</a></li>
+			<li><a href="m_setEmail.jsp" class="menuListA" target="iframe">设置邮箱</a></li>
+			<li><a href="m_activeEmail.jsp" class="menuListA" target="iframe">激活邮箱</a></li>
 		</ul>
 	</div>
 <script type="text/javascript">

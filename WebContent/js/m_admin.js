@@ -1,5 +1,5 @@
 var $nav=$(".nav");
-var curMenu=$("#managerPerson");
+var curMenu;
 var curLink=$(curMenu).find("ul li:nth-child(2) a")[0];
 $nav.click(function(){
 	var menuId=$(this).attr("id");
@@ -9,6 +9,9 @@ $nav.click(function(){
 	changeLink($(curMenu).find("li:nth-child(2) a")[0]);
 	
 });
+$(function(){
+	$(".nav")[0].click();
+})
 function changeLink(target)
 {
 	if(target==curLink) return;
