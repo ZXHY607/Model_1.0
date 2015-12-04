@@ -1,3 +1,4 @@
+<%@page import="net.gslab.tools.FileUtil"%>
 <%@page import="java.io.File"%>
 <%@page import="org.springframework.web.servlet.ModelAndView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -47,58 +48,39 @@
 
 </head>
 <body>
-	<div class="show"><span class="rootName">${root }</span><button id="in" class="cBtn">修改根文件夹名称</button></div>
-	<div class="change">
-	<form action="/Model/file/changeRoot"   class="rootForm" method="post">
-	<input name="filePath" value="${filePath}" type="hidden">
-		<input name="root" class="rootInput" value="${root }">
-	</form> <button id="exit" class="cBtn">完成修改</button> </div>
-	<script>
-		function change()
-		{
-			$(".show").hide();
-			$(".change").show();
-			$(".rootInput").focus();
-		}
-		function exitChange()
-		{
-			$(".show").show();
-			$(".change").hide();
-			$(".rootForm").submit();
-		}
-		$(function(){
-			$("#in").click(function(){
-				change();
-			});
-			$("#exit").click(function(){
-				exitChange();
-			});
-			$(".rootInput").blur(function(){
-				exitChange();
-			});
-			
-		});
-	</script>
+	
+	
 	<br><br>
-	<div ><a href="/Model/file/tListFile">返回根目录 </a></div>
+	<div ><a href="/Model/file/tListCategory">返回课件目录 </a></div>
 	<div ><a href="${parent }">返回上一级</a></div>
-	<form action="/Model/file/delete" method="post" onsubmit="return confirm('你要删除选中的文件吗')">
+	<form action="/Model/file/delete" method="post" onsubmit="return confirm('你确定要删除选中的文件吗')">
 	<input type="hidden" name="filePath" value="${filePath }">
 	<div class="ul">
-	<c:forEach items="${files}" var="file">
+	<%File[] files=(File[])request.getAttribute("files");
+	for(File file:files){
+	%>
+
 	<div>
-	<input type="checkbox" name="files" value="${file.getPath()}"><c:if test="${file.isDirectory()}">
-	<!-- <img src="../images/directory.png" class="icon"></img> -->
+	<input type="checkbox" name="files" value="<%=file.getPath()%>">
+	<%if(file.isDirectory()){ %>
+	<!-- <img src="../images/PowerPoint.png" class="icon"></img> -->
 	<span>(文件夹)</span>
-	<a class="dir" href="/Model/file/tListFile?filePath=${file.getPath()}">${file.getName()}</a>
-	</c:if>
-	<c:if test="${file.isFile() }">
-	<!-- <img src="../images/file.png" class="icon"></img> -->
+	<a class="dir" href="../file/tListFile?filePath=<%=file.getPath()%>">
+	<%=file.getName() %>
+	</a>
+	<%} else if(file.isFile()&&!FileUtil.isVideo(file)){%>
+	
 	<span>(文件)</span>
-	<a class="file" href="/Model/file/download?filePath=${file.getPath()}" >${file.getName()}</a>
-	</c:if>
+	<!-- <img src="../images/file.png" class="icon"></img> -->
+	<a class="file"  href="../file/download?filePath=<%=file.getPath() %>" ><%=file.getName() %></a>
+	<% }else{%>
+	<span>(视频)</span>
+	<!-- <img src="../images/file.png" class="icon"></img> -->
+	<a class="video"  href="/Model/view_login/playVideo.jsp?uri=<%=FileUtil.changeToServerURL(file.getPath(), request.getServletContext().getRealPath("/"))%>" ><%=file.getName() %></a>
+	<%} %>
 	</div>
-	</c:forEach>	
+	<%} %>
+	
 	</div>
 	<br><br><br><br>
 	<button >删除选中的文件</button>
