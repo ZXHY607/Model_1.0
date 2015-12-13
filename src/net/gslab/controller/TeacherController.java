@@ -58,7 +58,6 @@ public class TeacherController extends BaseController {
 		    		teacher.setTeacherId(id);
 		    		teacher.setPassword(password);
 		    		teacher.setTeacherName(teacherName);
-		    		teacher.setFileDirectory(teacherName);
 		    		teacher.setVideoDirectory(teacherName);
 		    		teacherDao.save(teacher);
 		    		mav.addObject("ERROR_MSG_KEY", "add teacher successfully;.");
@@ -140,7 +139,6 @@ public class TeacherController extends BaseController {
 	                    as.setTeacherName(teacherName);
 	                    as.setPassword(password);
 	                    as.setTeacherId(teacherId);
-	                    as.setFileDirectory(teacherName);
 	                    as.setVideoDirectory(teacherName);
 	                    if(as!=null){   //如果teacher不与数据库中人员冲突，并且不为空
 	            			teacherDao.save(as);

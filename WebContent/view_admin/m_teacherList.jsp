@@ -16,7 +16,7 @@
 	String[] paramNames={};
 %>
     <form action="/Model/teacher/delete">
-	<table><tr><th></th><th>ID</th><th>姓名</th><th>密码</th></tr>
+	<table><tr><th></th><th>ID</th><th>姓名</th><th>密码</th><th>课程</th></tr>
 	<%
 	PageBean pb=(PageBean)request.getAttribute("pageBean"); 
 	if(pb!=null)
@@ -32,7 +32,7 @@
 	
 	<td><%=t.getTeacherName() %></td>
 	<td><%=t.getPassword() %></td>
-	
+	<td><%=t.getCourse() %>
 	</tr>
 	
 	<%}}%>
@@ -49,6 +49,6 @@
               <a class="nxp" href="<%=pb.getNextPage(uri,paramNames,params)%>">下一页</a>
               <a class="lsp" href="<%=pb.getLastPage(uri,paramNames,params)%>">尾页</a>
             </div>
-            </div>
+    </div>
 </body>
 </html>
