@@ -215,3 +215,14 @@ cursor: pointer;
 	margin-top:3%; 
 	margin-left:20px;
 }
+
+.courseN
+{
+	text-decoration: none;
+	color:#000000;
+}
+
+.courseN:hover
+{
+	color:#FFFFFF;
+}
