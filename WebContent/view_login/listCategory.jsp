@@ -35,7 +35,7 @@
 	List<String> pathList =(ArrayList<String>)request.getAttribute("pathList");
 	for(int i=0;i<fileList.size();i++)
 	{%>
-	<p><a href="<%=pathList.get(i)%>">
+	<p><a class="courseN" href="<%=pathList.get(i)%>">
 	<%=fileList.get(i) %>
 	</a></p>
 	<%} %>

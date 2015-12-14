@@ -7,10 +7,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="../js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/Model/view_all/js/jquery-2.1.4.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="../view_all/css/login.css">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/Model/view_all/css/login.css">
+<title>课件</title>
 <style>
 	
 	a
@@ -31,9 +31,17 @@
 </style>
 
 </head>
-<body>
-	<div ><a href="../file/listCategory">返回课件目录</a></div>
-	<div ><a href="${parent }">返回上一级</a></div>
+<body class="back">
+ <div class="TITLE0"><!--标题-->
+      <hr class="line" />
+      <img src="../view_all/images/logo.png" class="logo">
+      <img src="../view_all/images/title-DLUT.png" class="DLUT">
+      <div style="clear:both;"></div>
+    </div>
+
+    <div class="line_div">
+      <hr class="line1" />
+    </div>
 	<div class="ul">
 	<%File[] files=(File[])request.getAttribute("files");
 	for(File file:files){
@@ -48,9 +56,9 @@
 	</a>
 	<%} else if(file.isFile()&&!FileUtil.isVideo(file)){%>
 	
-	<span>(文件)</span>
+	
 	<!-- <img src="../images/file.png" class="icon"></img> -->
-	<a class="file"  href="../file/download?filePath=<%=file.getPath() %>" ><%=file.getName() %></a>
+	<a class="courseN"  href="../file/download?filePath=<%=file.getPath() %>" ><%=file.getName() %></a>
 	<% }else{%>
 	<span>(视频)</span>
 	<!-- <img src="../images/file.png" class="icon"></img> -->
@@ -59,6 +67,11 @@
 	</div>
 	<%} %>
 	</div>
+	<div class="foot">
+	  <a class="forget_pn" href="../file/listCategory">返回课件目录</a>
+	  <a class="forget_pn"  href="${parent }">返回上一级</a>
+	</div>
+	
 	<script type="text/javascript">
 	</script>
 </body>
