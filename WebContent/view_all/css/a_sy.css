@@ -16,7 +16,7 @@
 .TITLE0{
 	position:relative;
 	clear: both;
-	height: 13%;
+	
 }
 .line{
 	width:100%;
@@ -133,7 +133,7 @@
 
 .pictureDiv{
 	position: relative;
-    height: 30%;
+   
     z-index: 0;
     margin-top: 5%;
     margin-bottom: 2%;
@@ -201,6 +201,10 @@
 
 }
 
+#newC
+{
+	height:90%;
+}
 .news
 {
 	float: left;
