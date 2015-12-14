@@ -41,12 +41,20 @@ public class Login2Controller extends BaseController{
 		System.out.println("loadname:"+loadname+" logintype:"+logintype);
 		ModelAndView mav=new ModelAndView();
 		
-		int id=Integer.parseInt(loadname);   //登陆账户转为int类型
+		int id=-1;
+		try{
+			id=Integer.parseInt(loadname);   //登陆账户转为int类型
+		}catch(Exception e)
+		{
+			mav.addObject("ERROR_MSG_KEY", "This account doesn't exist.");
+			mav.setViewName("/login2.jsp");
+			return mav;
+		}
 		
 		if(logintype.equals("student")){      //学生登录
 			Member dbMember = memberService.getByID(id);
 			if(dbMember==null) {
-				mav.addObject("ERROR_MSG_KEY", "账号不存在");
+				mav.addObject("ERROR_MSG_KEY", "This student doesn't exist.");
 				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
@@ -76,13 +84,13 @@ public class Login2Controller extends BaseController{
 		else if(logintype.equals("teacher")){             //老师登录
 			Teacher dbMember = teacherService.getByID(id);
 			if(dbMember==null) {
-				mav.addObject("ERROR_MSG_KEY", "the teacher Id don't exist;");
+				mav.addObject("ERROR_MSG_KEY", "This teacher doesn't exist;");
 				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
 				}
 			else if(!dbMember.getPassword().equals(password)){
-				mav.addObject("ERROR_MSG_KEY","the teacher password is wrong");
+				mav.addObject("ERROR_MSG_KEY","password is wrong");
 				mav.setViewName("/login2.jsp");
 				return mav;
 			}else{
@@ -107,13 +115,13 @@ public class Login2Controller extends BaseController{
 		else if(logintype.equals("admin")){                     //管理员登录
 			Admin dbMember = adminService.getByID(id);
 			if(dbMember==null) {
-				mav.addObject("ERROR_MSG_KEY", "the admin Id don't exist1;");
+				mav.addObject("ERROR_MSG_KEY", "this admin don't exist1;");
 				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
 				}
 			else if(!dbMember.getPassword().equals(password)){
-				mav.addObject("ERROR_MSG_KEY","the admin password is wrong");
+				mav.addObject("ERROR_MSG_KEY"," password is wrong");
 				mav.setViewName("/login2.jsp");
 				return mav;
 			}else{
