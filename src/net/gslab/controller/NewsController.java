@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.gslab.entity.News;
-import net.gslab.entity.User;
 import net.gslab.service.NewsService;
 import net.gslab.setting.CommonConstant;
 import net.gslab.setting.PageBean;

@@ -39,7 +39,7 @@ public class Teacher extends BaseDomain{
 	private String QQ;
 	private String mobilePhone;
 	private String selfEvaluation;
-	private String fileDirectory;
+	private String course;
 	private String videoDirectory;
 	public String getSelfEvaluation() {
 		return selfEvaluation;
@@ -111,11 +111,12 @@ public class Teacher extends BaseDomain{
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
-	public String getFileDirectory() {
-		return fileDirectory;
+	
+	public String getCourse() {
+		return course;
 	}
-	public void setFileDirectory(String fileDirectory) {
-		this.fileDirectory = fileDirectory;
+	public void setCourse(String course) {
+		this.course = course;
 	}
 	public String getEmail_active() {
 		return email_active;

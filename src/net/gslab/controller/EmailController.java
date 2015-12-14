@@ -21,7 +21,6 @@ import net.gslab.dao.AdminDao;
 import net.gslab.dao.TeacherDao;
 import net.gslab.dao.MemberDao;
 import net.gslab.service.TeacherService;
-import net.gslab.service.UserService;
 import net.gslab.service.impl.AdminServiceImpl;
 import net.gslab.setting.PageBean;
 import net.gslab.tools.Email;

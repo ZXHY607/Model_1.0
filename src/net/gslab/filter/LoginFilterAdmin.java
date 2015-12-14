@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 import net.gslab.entity.Member;
 import net.gslab.entity.Teacher;
 import net.gslab.entity.Admin;
-import net.gslab.entity.User;
 /**
  * Servlet Filter implementation class LoginFilterAdmin
  */

@@ -1,3 +1,4 @@
+<%@page import="net.gslab.tools.FileUtil"%>
 <%@page import="java.io.File"%>
 <%@page import="org.springframework.web.servlet.ModelAndView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -34,24 +35,29 @@
 	<div ><a href="../file/listCategory">返回课件目录</a></div>
 	<div ><a href="${parent }">返回上一级</a></div>
 	<div class="ul">
-	<%%>
-	<c:forEach items="${files}" var="file">
+	<%File[] files=(File[])request.getAttribute("files");
+	for(File file:files){
+	%>
+
 	<div>
-	<c:if test="${file.isDirectory()}">
+	<%if(file.isDirectory()){ %>
 	<!-- <img src="../images/PowerPoint.png" class="icon"></img> -->
 	<span>(文件夹)</span>
-	<a class="dir" href="../file/listFile?filePath=${file.getPath()}">
-	
-	${file.getName()}
+	<a class="dir" href="../file/listFile?filePath=<%=file.getPath()%>">
+	<%=file.getName() %>
 	</a>
-	</c:if>
-	<c:if test="${file.isFile() }">
+	<%} else if(file.isFile()&&!FileUtil.isVideo(file)){%>
+	
 	<span>(文件)</span>
 	<!-- <img src="../images/file.png" class="icon"></img> -->
-	<a class="file" href="../file/download?filePath=${file.getPath()}" >${file.getName()}</a>
-	</c:if>
+	<a class="file"  href="../file/download?filePath=<%=file.getPath() %>" ><%=file.getName() %></a>
+	<% }else{%>
+	<span>(视频)</span>
+	<!-- <img src="../images/file.png" class="icon"></img> -->
+	<a class="video"  href="/Model/view_login/playVideo.jsp?uri=<%=FileUtil.changeToServerURL(file.getPath(), request.getServletContext().getRealPath("/"))%>" ><%=file.getName() %></a>
+	<%} %>
 	</div>
-	</c:forEach>	
+	<%} %>
 	</div>
 	<script type="text/javascript">
 	</script>

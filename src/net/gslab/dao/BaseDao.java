@@ -11,11 +11,11 @@ public interface BaseDao<T> {
 
 	public abstract List<T> loadAll();
 
-	public abstract void save(T entity);
+	public abstract boolean save(T entity);
 
 	public abstract boolean remove(T entity);
-
-	public abstract void update(T entity);
+	public abstract boolean remove(Serializable id);
+	public abstract boolean update(T entity);
 
 	public abstract List<T> find(String hql);
 

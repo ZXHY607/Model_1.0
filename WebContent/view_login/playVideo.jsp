@@ -10,11 +10,11 @@
 </head>
 <body>
 <%String uri=request.getParameter("uri"); 
-	uri="/Model/teaVideos/"+uri;
+	
 %>
 <video width="320" height="240" controls>
-	<source src="<%=uri%>" >
-	<object data="<%=uri%>" width="320" height="240"></object>
+	<source src="<%=uri %>" >
+	<object data="<%=uri %>" width="320" height="240"></object>
 </video>
 </body>
 </html>

@@ -16,9 +16,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.gslab.dao.CourseDao;
 import net.gslab.dao.TeacherDao;
+import net.gslab.entity.Course;
 import net.gslab.entity.Teacher;
+import net.gslab.tools.FileUtil;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,22 +39,40 @@ public class FileController extends BaseController {
 	private ServletContext servletContext;
 	@Resource(name="teacherDaoImpl")
 	private TeacherDao teacherDao;
+	@Resource(name="courseDaoImpl")
+	private CourseDao courseDao;
 	@RequestMapping(value="/listCategory")
 	public ModelAndView listCategory()
 	{
 		
-		List<Teacher> list=teacherDao.loadAll();
+		List<Course> list=courseDao.loadAll();
 		List<String> fileList=new ArrayList<String>();
 		List<String> pathList=new ArrayList<String>();
 		for(int i=0;i<list.size();i++)
 		{
-			Teacher t=list.get(i);
-			if(hasCourseware(getTeacherDir(t))) {
-				fileList.add(t.getFileDirectory());
-				pathList.add("/Model/file/listFile?filePath="+getTeacherDir(t));
-			}
+			Course c=list.get(i);
+			fileList.add(c.getName());
+			pathList.add("/Model/file/listFile?filePath="+getCourseDir(c));
 		}
-		ModelAndView mav=new ModelAndView("../view_login/listCategory.jsp");
+		ModelAndView mav=new ModelAndView("/view_login/listCategory.jsp");
+		mav.addObject("fileList",fileList);
+		mav.addObject("pathList", pathList);
+		return mav;
+	}
+	@RequestMapping(value="/tListCategory")
+	public ModelAndView tListCategory(HttpServletRequest request)
+	{
+		Teacher t=getSessionTeacher(request);
+		List<Course> list=courseDao.find("from Course where tId="+t.getTeacherId());
+		List<String> fileList=new ArrayList<String>();
+		List<String> pathList=new ArrayList<String>();
+		for(int i=0;i<list.size();i++)
+		{
+			Course c=list.get(i);
+			fileList.add(c.getName());
+			pathList.add("/Model/file/tListFile?filePath="+getCourseDir(c));
+		}
+		ModelAndView mav=new ModelAndView("/view_tea/t_listCategory.jsp");
 		mav.addObject("fileList",fileList);
 		mav.addObject("pathList", pathList);
 		return mav;
@@ -61,13 +83,12 @@ public class FileController extends BaseController {
 		String msg="路径出错";
 		if(!validate(filePath)) 
 			return illeageAccess(msg);
-		ModelAndView mav=new ModelAndView("../view_login/listFile.jsp");
+		ModelAndView mav=new ModelAndView("/view_login/listFile.jsp");
 		File file=new File(filePath);
-		String baseDir=getBaseDir();
 		String parent=file.getParent();
-		if(parent.length()<=baseDir.length())
-			parent="../file/listCategory";
-		else parent="../file/listFile?filePath="+parent;
+		if(!validate(parent))
+			parent="/Model/file/listCategory";
+		else parent="/Model/file/listFile?filePath="+parent;
 		if(file.isDirectory())
 		{
 			mav.addObject("filePath", filePath);
@@ -120,24 +141,19 @@ public class FileController extends BaseController {
 	{
 		String msg="路径出错";
 		Teacher t=getSessionTeacher(request);
-		String baseDir=getTeacherDir(t);
-		File root=new File(baseDir);
-		if(!root.exists()) root.mkdirs();
-		if(!validate(filePath)) filePath=baseDir; 
-		ModelAndView mav=new ModelAndView("/view_tea/manageFile.jsp");
+		if(!validate(filePath)) return illeageAccess("非法访问"); 
+		ModelAndView mav=new ModelAndView("/view_tea/t_listFile.jsp");
 		File file=new File(filePath);
 		String parent=file.getParent();
-		if(parent.length()<baseDir.length())
-			parent="/Model/file/tListFile?filePath="+baseDir;
+		if(!validate(parent))
+			parent="/Model/file/tListCategory";
 		else parent="/Model/file/tListFile?filePath="+parent;
 		if(file.isDirectory())
 		{
 			mav.addObject("filePath", filePath);
 			mav.addObject("parent", parent);
-			File []files=file.listFiles();
+			File []files=file.listFiles(); 
 			mav.addObject("files", files);
-			mav.addObject("root", t.getFileDirectory());
-			
 		}
 		return mav;
 	}
@@ -145,10 +161,9 @@ public class FileController extends BaseController {
 	public  ModelAndView delete(String [] files,HttpServletRequest request,String filePath)
 	{
 		Teacher t=getSessionTeacher(request);
-		String baseDir=getTeacherDir(t);
 		for(String file:files)
 		{
-			if(validate(file,baseDir)) {
+			if(validate(file)) {
 				File f=new File(file);
 				deleteFile(f);
 			}
@@ -171,7 +186,7 @@ public class FileController extends BaseController {
 		String name=fullName.substring(0,fullName.lastIndexOf("."));
 		String suffix=fullName.substring(fullName.lastIndexOf('.'));
 		if(!validate(filePath)) return illeageAccess(msg);
-		File f=renamePolicy(filePath+"/"+name,suffix);
+		File f=FileUtil.renameFile(filePath+"/"+name,suffix);
 		InputStream fis = null;
 		FileOutputStream fos = null;
 		try {
@@ -203,38 +218,28 @@ public class FileController extends BaseController {
 	public ModelAndView newFolder(HttpServletRequest request,String filePath,String fileName)
 	{
 		Teacher t=getSessionTeacher(request);
-		String baseDir=getTeacherDir(t);
-		if(validate(filePath, baseDir))
+		if(validate(filePath))
 		{
-			File f=renamePolicy(filePath+"/"+fileName);
+			File f=FileUtil.renameDir(filePath+"/"+fileName);
 			f.mkdir();
 		}
 		return tListFile(filePath, request);
 	}
-	@RequestMapping(value="changeRoot")
-	public ModelAndView changeRoot(HttpServletRequest request,String root,String filePath)
-	{
-		
-		Teacher t=getSessionTeacher(request);
-		File f=new File(getTeacherDir(t));
-		if(!f.exists()) return illeageAccess("你的文件夹不存在");
-		t.setFileDirectory(root);
-		teacherDao.update(t);
-		return tListFile(filePath, request);
-	}
-	private String getBaseDir()
+	
+	private  String getBaseDir()
 	{
 		return servletContext.getRealPath("/teaFiles");
 	}
-	private String getTeacherDir(Teacher t)
+	private String getCourseDir(Course c)
 	{
-		return getBaseDir()+"\\"+t.getTeacherId();
+		return getBaseDir()+"\\"+c.getFileDir();
 	}
+	
 	private boolean validate(String filePath)
 	{
 		
 		String baseDir=getBaseDir();
-		if(filePath==null||filePath.length()<baseDir.length()) return false;
+		if(filePath==null||filePath.length()<=baseDir.length()) return false;
 		if(!filePath.substring(0,baseDir.length()).equals(baseDir)) return false;
 		
 		return true;
@@ -247,7 +252,7 @@ public class FileController extends BaseController {
 	}
 	private ModelAndView illeageAccess(String msg)
 	{
-		ModelAndView mav =new ModelAndView("../view_all/result.jsp");
+		ModelAndView mav =new ModelAndView("/view_all/result.jsp");
 		mav.addObject("msg",msg);
 		return mav;
 	}
@@ -259,28 +264,7 @@ public class FileController extends BaseController {
 		if(s==null||s.length==0) return false;
 		return true;
 	}
-	private File renamePolicy(String filePath)
-	{
-		int i=1;
-		File f=new File(filePath);
-		while(f.exists())
-		{
-			f=new File(filePath+'('+i+')');
-			i++;
-		}
-		return f;
-	}
-	private File renamePolicy(String filePath,String suffix)
-	{
-		int i=1;
-		File f=new File(filePath+suffix);
-		while(f.exists())
-		{
-			f=new File(filePath+'('+i+')'+suffix);
-			i++;
-		}
-		return f;
-	}
+	
 	@RequestMapping(value="/test")
 	public void test()
 	{
