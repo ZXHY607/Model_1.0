@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.gslab.entity.User;
 
 public class PageBean<T> implements Serializable {
 	private static final long serialVersionUID = -3930180379790344299L;

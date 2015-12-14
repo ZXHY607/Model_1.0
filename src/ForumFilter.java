@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.StringUtils;
 
-import net.gslab.entity.User;
-
 
 public class ForumFilter implements Filter{
 	

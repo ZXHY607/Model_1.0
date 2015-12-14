@@ -36,15 +36,9 @@
 	<div class="foot">
 	  <a class="forget_pn" href="/Model/view_all/emailResetPassword.jsp">忘记密码?</a>
 	  <a class="forget_pn" href="/Model/view_all/a_sy.html">返回主页>></a>
+	  <div class="error" style="color:red;text-align:left;">a<%=(request.getAttribute("ERROR_MSG_KEY")!=null)?request.getAttribute("ERROR_MSG_KEY"):"" %></div>
 	</div>
 	
-	<%if(request.getAttribute("ERROR_MSG_KEY")!=null){
-	out.print("<hr/>");
-	out.print("提示：");
-	out.print(request.getAttribute("ERROR_MSG_KEY"));
-}
-
-
-%>
+	
 </body>
 </html>

@@ -7,13 +7,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import net.gslab.entity.Member;
-import net.gslab.entity.User;
 import net.gslab.entity.Admin;
 import net.gslab.entity.Teacher;
 import net.gslab.service.AdminService;
 import net.gslab.service.MemberService;
 import net.gslab.service.TeacherService;
-import net.gslab.service.UserService;
 import net.gslab.setting.CommonConstant;
 
 import org.springframework.stereotype.Controller;
@@ -48,14 +46,14 @@ public class Login2Controller extends BaseController{
 		if(logintype.equals("student")){      //学生登录
 			Member dbMember = memberService.getByID(id);
 			if(dbMember==null) {
-				mav.addObject("ERROR_MSG_KEY", "the student Id don't exist1;");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.addObject("ERROR_MSG_KEY", "账号不存在");
+				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
 				}
 			else if(!dbMember.getPassword().equals(password)){
-				mav.addObject("ERROR_MSG_KEY","the student password is wrong;");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.addObject("ERROR_MSG_KEY","密码错误");
+				mav.setViewName("/login2.jsp");
 				return mav;
 			}else{
 				mav.addObject("ERROR_MSG_KEY", "Hello,student,login success");
@@ -79,13 +77,13 @@ public class Login2Controller extends BaseController{
 			Teacher dbMember = teacherService.getByID(id);
 			if(dbMember==null) {
 				mav.addObject("ERROR_MSG_KEY", "the teacher Id don't exist;");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
 				}
 			else if(!dbMember.getPassword().equals(password)){
 				mav.addObject("ERROR_MSG_KEY","the teacher password is wrong");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.setViewName("/login2.jsp");
 				return mav;
 			}else{
 				mav.addObject("ERROR_MSG_KEY", "Hello,teacher,login success!");
@@ -110,13 +108,13 @@ public class Login2Controller extends BaseController{
 			Admin dbMember = adminService.getByID(id);
 			if(dbMember==null) {
 				mav.addObject("ERROR_MSG_KEY", "the admin Id don't exist1;");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.setViewName("/login2.jsp");
 				System.out.println("redirect2");
 				return mav;
 				}
 			else if(!dbMember.getPassword().equals(password)){
 				mav.addObject("ERROR_MSG_KEY","the admin password is wrong");
-				mav.setViewName("redirect:/common/resource_not_found.jsp");
+				mav.setViewName("/login2.jsp");
 				return mav;
 			}else{
 				mav.addObject("ERROR_MSG_KEY", "Admin,login success.");

@@ -29,8 +29,7 @@
 	<ul>
 <!-- 		<li><a href="#" target="iframe">首页</a></li> -->
         <li><a id="#managerSelf" class="nav" href="t_teacher_personalInfor.jsp" target="iframe">个人管理</a></li>
-		<li><a id="#managerFile" class="nav" href="/Model/file/tListFile" target="iframe">教学资源管理</a></li>
-		<li><a id="#managerVideo" class="nav" href="/Model/video/tList" target="iframe">视频管理</a></li>
+		<li><a id="#managerFile" class="nav" href="/Model/file/tListCategory" target="iframe">教学资源管理</a></li>
 		<li><a id="#managerNews" class="nav" href="/Model/news/getPage" target="iframe">新闻管理</a></li>
 	</ul>
 </div>	
@@ -40,22 +39,16 @@
 	<div class="menuList" id="managerFile">
 		<ul>
 			<li>教学资源管理</li>
-			<li><a href="/Model/file/tListFile" class="menuListA"target="iframe">教学资源</a></li>
+			<li><a href="/Model/file/tListCategory" class="menuListA" target="iframe">教学资源</a></li>
 			
 		</ul>
 	</div>
-	<div class="menuList" id="managerVideo">
-		<ul>
-			<li>视频管理</li>
-			<li><a href="/Model/video/tList" class="menuListA"target="iframe">视频管理</a></li>
-		</ul>
-	</div>	
+	
 	<div class="menuList" id="managerNews">
 		<ul>
 			<li>新闻管理</li>
-			<li><a href="/Model/teacher/getNewsPage" target="iframe">查看新闻</a></li>
+			<li><a href="/Model/news/getPage" target="iframe">查看新闻</a></li>
 			<li><a href="t_newsAdd.jsp" class="menuListA"target="iframe">添加新闻</a></li>
-			<li><a href="t_newsDelete.jsp"  class="menuListA"target="iframe">删除新闻</a></li>
 		</ul>
 	</div>	
 	<div class="menuList" id="managerSelf">
