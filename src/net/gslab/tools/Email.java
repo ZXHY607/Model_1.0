@@ -1,6 +1,12 @@
 package net.gslab.tools;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.UnknownHostException;
 import java.util.Random;
+
+import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
@@ -70,15 +76,16 @@ public class Email {
 	//生成绑定邮箱 邮件正文
 	public static String generate_msg (String type,String loadname,String captch){
     	String msg="<html><body>";
+    	String ip="";
+    	try {
+			ip=Inet4Address.getLocalHost().getHostAddress().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	
+    	System.out.println("ip: "+ip);
+    	msg=msg+ "<a href='http://"+ip+":8080/Model/email/activeEmail_receive?type="+type+"&ln="+loadname+"&ca="+captch+"'>激活链接</a></br>";
     	
-    	msg=msg+ "<a href='http://localhost:8080/Model/email/activeEmail_receive?type="+type+"&ln="+loadname+"&ca="+captch+"'>激活链接</a></br>";
-    	msg=msg+"如果无法打开页面，请复制下面的链接，然后用浏览器打开：";
-    	msg=msg+" http://localhost:8080/Model/email/activeEmail_receive?type=";
-      	msg=msg+type;
-    	msg=msg+"&ln="  ;//设置用户名"
-    	msg=msg+loadname;
-    	msg=msg+"&ca=";           //设置验证码
-    	msg=msg+captch;
     	msg=msg+"</body></html>";
     	
 		return msg;

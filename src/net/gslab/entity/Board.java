@@ -6,68 +6,63 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-
-
 @Entity
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name="t_board")
 public class Board extends BaseDomain{
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int boardId;
-
+	private int publishId;
+	private int who;   // 0：teacher     1：admin
+	private String publishDate;
+	private String publishName;
+	private String content;
 	private String boardName;
-	
-	public Board(int boardId, String boardName, String boardDesc, int topicNum) {
-		super();
-		this.boardId = boardId;
-		this.boardName = boardName;
-		this.boardDesc = boardDesc;
-		this.topicNum = topicNum;
+	public String getPublishDate() {
+		return publishDate;
 	}
-
-	public Board() {
-		super();
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
 	}
-
-	private String boardDesc;
+	public String getPublishName() {
+		return publishName;
+	}
+	public void setPublishName(String publishName) {
+		this.publishName = publishName;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	
-	private int topicNum;
-
 	public int getBoardId() {
 		return boardId;
 	}
-
 	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
-
 	public String getBoardName() {
 		return boardName;
 	}
-
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
-
-	public String getBoardDesc() {
-		return boardDesc;
+	public int getPublishId() {
+		return publishId;
 	}
-
-	public void setBoardDesc(String boardDesc) {
-		this.boardDesc = boardDesc;
+	public void setPublishId(int publishId) {
+		this.publishId = publishId;
 	}
-
-	public int getTopicNum() {
-		return topicNum;
+	public int getWho() {
+		return who;
 	}
-
-	public void setTopicNum(int topicNum) {
-		this.topicNum = topicNum;
+	public void setWho(int who) {
+		this.who = who;
 	}
-
 	
+	
+
 }
