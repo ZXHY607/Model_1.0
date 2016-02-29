@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import net.gslab.dao.NewsDao;
-import net.gslab.entity.News;
+import net.gslab.dao.BoardDao;
+import net.gslab.entity.Board;
 
-@Repository(value="newsDaoImpl")
-public class NewsDaoImpl extends BaseDaoImpl<News> implements NewsDao{
+@Repository(value="boardDaoImpl")
+public class BoardDaoImpl extends BaseDaoImpl<Board> implements BoardDao{
 	
 	
 }

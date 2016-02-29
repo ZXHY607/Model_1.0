@@ -28,36 +28,7 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
 		List<News> news=newsDao.find("from News");
 		System.out.println("listNews() in the UserService"+news);
 		return news;
-		
 	}
-	
-	public News getByID(int id)//根据新闻id，获取新闻 ，关振宇
-	{
-		System.out.println("in the service_getByID(id)");
-		return newsDao.getNewsById(id);
-		
-	}
-	
-	
-	
-	
-//	public NewsServiceImpl() {
-//		// TODO Auto-generated constructor stub
-//		setBaseDao(newsDao);
-//	}
-	
-//	@Override
-//	public void setBaseDao(BaseDao<News> newsDao) {
-//		// TODO Auto-generated method stub
-//		super.setBaseDao(newsDao);
-//
-//	}
-	
-//	public void save(News news){
-//		System.out.println("in the newsServiceImpl");
-//		System.out.println(news.getNewsId());
-//		newsDao.save(news);
-//	}
 	
 
 	
